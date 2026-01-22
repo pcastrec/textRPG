@@ -1,13 +1,8 @@
 # tsRPG
-Variante du codestudent JAVATEXTRPG by Fred
+Implementation Typescript de JavaTextRPG developpé par Fred Diekmann pour codestudent.net
 
 ## Implementation du code
 ### Systems
 - [] System
 - [] Exploration
 - [] Combat
-
-## Features sur lesquelles revenir
-### filterByInterface
-- [] BattleConsumable
-- [] ExploreConsumable
