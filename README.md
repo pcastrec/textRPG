@@ -3,6 +3,15 @@ Implementation Typescript de JavaTextRPG developpé par Fred Diekmann pour codes
 
 ## Implementation du code
 ### Systems
-- [] System
-- [] Exploration
-- [] Combat
+- [~] System
+- [~] Exploration (Destination 🪲)
+- [~] Combat
+
+- [] GameContext naming null mais cool
+- [] Remplacer console.log par state
+- [] La value des potions inutilisé 🪲
+- [] ConcreteConsumable target = self pas forcement player 🪲;
+
+
+### Abilities
+- [] Attention value & maxValue 🪲

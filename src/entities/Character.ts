@@ -1,5 +1,7 @@
 import { Charisma, Constitution, Dexterity, Energy, Health, Intelligence, Mana, Strength, Wisdom } from "./Ability.js";
+import type { Enemy } from "./Enemy.js";
 import { Inventory } from "./Inventory.js";
+import { coupPoingt, type Skill } from "./Skill.js";
 
 export type Abilities = {
     health: Health,
@@ -33,6 +35,7 @@ export abstract class Character {
         charisma: new Charisma()
     };
 
+    private _skills: Skill[] = [new coupPoingt(this)];
     private _inventory: Inventory = new Inventory();
 
     constructor(
@@ -59,6 +62,16 @@ export abstract class Character {
 
     get inventory(): Inventory { return this._inventory }
     get abilities(): Abilities { return this._abilities }
+    get skills(): Skill[] { return this._skills }
+
+    use(skill: Skill, enemy: Character) {
+        skill.effects.map(e => {
+            const target = e.self ? this : enemy;
+            const mul = e.self ? 1 : -1;
+            const ability = target._abilities[e.ability.name.toLowerCase() as keyof Abilities]
+            ability.value += (mul * e.value)
+        })
+    }
 
     isAlive(): boolean {
         return this._abilities.health.value > 0;
