@@ -4,13 +4,14 @@ Implementation Typescript de JavaTextRPG developpé par Fred Diekmann pour codes
 ## Implementation du code
 ### Systems
 - [~] System
-- [~] Exploration (Destination 🪲)
+- [x] Exploration (Destination 🪲) (Interaction Environment?)
 - [~] Combat
 
 - [] GameContext naming null mais cool
 - [] Remplacer console.log par state
-- [] La value des potions inutilisé 🪲
-- [] ConcreteConsumable target = self pas forcement player 🪲;
+- [x] La value des potions inutilisé 🪲
+- [x] ConcreteConsumable target = self pas forcement player 🪲;
+- [] Ne pas avoir owner dans Consumable & Skill ?
 
 
 ### Abilities

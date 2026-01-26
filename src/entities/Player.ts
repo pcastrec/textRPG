@@ -9,11 +9,12 @@ export class Player extends Character {
 
     constructor(name: string) {
         super(name);
-        this.inventory.add(new Campfire());
-        this.inventory.add(new HealthPotion());
+        this.inventory.add(new Campfire(this));
+        this.inventory.add(new HealthPotion(this));
     }
 
     move(direction: Direction): Path {
+        console.log(`You moved to the ${direction}`);
         const nextLocation = this._location.direction(direction);
         return new Path(this._location, nextLocation);
     }

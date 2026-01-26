@@ -4,10 +4,10 @@ export type Position = {
 }
 
 export enum Direction {
-    NORTH,
-    SOUTH,
-    EAST,
-    WEST
+    NORTH = "North",
+    SOUTH = "South",
+    EAST = "East",
+    WEST = "West"
 }
 
 export class Location {
@@ -15,8 +15,28 @@ export class Location {
     constructor(private _position: Position) { }
 
     direction(dir: Direction): Location {
-        const x = Direction.WEST === dir ? -1 : 1;
-        const y = Direction.SOUTH === dir ? -1 : 1;
+        let x = 0;
+        let y = 0;
+        switch (dir) {
+            case Direction.NORTH:
+                x = 0;
+                y = 1;
+                break;
+            case Direction.SOUTH:
+                x = 0;
+                y = -1;
+                break;
+            case Direction.EAST:
+                x = 1;
+                y = 0;
+                break;
+            case Direction.WEST:
+                x = -1;
+                y = 0;
+                break;
+            default:
+                break;
+        }
         return new Location({
             x: this._position.x + x,
             y: this._position.y + y

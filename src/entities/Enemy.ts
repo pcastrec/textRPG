@@ -15,6 +15,6 @@ export class Goblin extends Enemy {
 export class Ogre extends Enemy {
     constructor(name: string) {
         super(name);
-        this.inventory.add(new HealthPotion());
+        this.inventory.add(new HealthPotion(this));
     }
 }

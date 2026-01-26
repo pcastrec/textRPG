@@ -14,12 +14,12 @@ const enemies: Enemy[] = [new Ogre('Ogre'), new Goblin('Gobgob')];
 // console.log('ogre', enemies[0]?.abilities.health);
 // new BattleSystem(player, enemies[0]!);
 // console.log('player', player.abilities.health);
-console.log('enemy', enemies[0]?.abilities.health);
+// console.log('enemy', enemies[0]?.abilities.health);
 // console.log('player', player.abilities.health);
-const usableItems = enemies[0]?.inventory.items.filter(i => (i as Consumable).canUse(state));
-console.log(usableItems);
+// const usableItems = enemies[0]?.inventory.items.filter(i => (i as Consumable).canUse(state));
+// console.log(usableItems);
 
-enemies[0]?.inventory.items.map(i => (i as Consumable).tryUse(state))
-console.log('player', player.abilities.health);
-console.log('enemy', enemies[0]?.abilities.health);
-// ExplorationSystem.explore(state, player.move(Direction.EAST));
+// enemies[0]?.inventory.items.map(i => (i as Consumable).tryUse(state))
+// console.log('player', player.abilities.health);
+// console.log('enemy', enemies[0]?.abilities.health);
+ExplorationSystem.explore(state, player.move(Direction.WEST));

@@ -1,3 +1,4 @@
+import type { Character } from "./Character.js";
 import type { GameState } from "./GameState.js";
 import { type UsageRestriction } from "./Restriction.js";
 
@@ -9,7 +10,7 @@ export abstract class Item {
         private _weigth: number = 1,
         private _restriction: UsageRestriction
     ) { }
-    
+
     get restriction(): UsageRestriction { return this._restriction }
 
     get name(): string { return this._name }
@@ -21,11 +22,16 @@ export abstract class Item {
 }
 
 export abstract class Consumable extends Item {
+
     constructor(
+        private _owner: Character,
         name: string, quantity: number, weight: number, restriction: UsageRestriction
     ) {
         super(name, quantity, weight, restriction);
     }
+
+    get owner(): Character { return this._owner }
+
     abstract use(state: GameState): void;
 
     canUse(state: GameState): boolean {

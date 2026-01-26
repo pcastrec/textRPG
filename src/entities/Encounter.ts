@@ -15,17 +15,17 @@ export class BattleEncounter implements IEncounter {
     constructor(private _enemy: Enemy) { }
 
     before(state: GameState): void {
-        console.log(`You fight a ${this._enemy.name}`);
+        // console.log(`You fight a ${this._enemy.name}`);
         state.context = GameContext.BATTLE;
     }
 
     execute(state: GameState): void {
         new BattleSystem(state.player, this._enemy);
-        console.log(`You take down ${this._enemy.name}`);
+        // console.log(`You take down ${this._enemy.name}`);
     }
 
     after(state: GameState) {
-        console.log(`A dead ${this._enemy.name} is at your foot`);
+        // console.log(`A dead ${this._enemy.name} is at your foot`);
         state.context = GameContext.EXPLORATION
     }
 } 

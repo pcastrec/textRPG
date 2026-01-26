@@ -1,22 +1,23 @@
-import type { Abilities } from "./Character.js";
+import type { Abilities, Character } from "./Character.js";
 import { Regen, type IEffect } from "./Effect.js";
 import type { GameState } from "./GameState.js";
 import { Consumable } from "./Item.js";
 import { BattleUsage, ExplorationUsage, NoRestriction } from "./Restriction.js";
 
+// Strategy Pattern on Potions replace concrete classes
+// with IEffect arg
 export class HealthPotion extends Consumable {
 
-    private _effect: IEffect = new Regen();
-    constructor(private _health: number = 10) {
-        super(`${HealthPotion.name}(${_health})`, 1, 1, new NoRestriction());
+    constructor(character: Character, private _effect: IEffect = new Regen()) {
+        super(character, `${HealthPotion.name}(${_effect.value})`, 1, 1, new NoRestriction());
     }
 
     get name(): string {
-        return `${HealthPotion.name}(${this._health})`;
+        return `${HealthPotion.name}(${this._effect.value})`;
     }
 
     use(state: GameState): void {
-        const target = this._effect.self ? state.player : state.enemy;
+        const target = this.owner;
         const mul = this._effect.self ? 1 : -1;
         const ability = target!.abilities[this._effect.ability.name.toLowerCase() as keyof Abilities]
         ability.value += (mul * this._effect.value)
@@ -27,8 +28,8 @@ export class HealthPotion extends Consumable {
 
 export class Campfire extends Consumable {
 
-    constructor() {
-        super(Campfire.name, 1, 1, new ExplorationUsage());
+    constructor(character: Character) {
+        super(character, Campfire.name, 1, 1, new ExplorationUsage());
     }
 
     get name(): string {
@@ -43,8 +44,8 @@ export class Campfire extends Consumable {
 
 export class FirePotion extends Consumable {
 
-    constructor() {
-        super(FirePotion.name, 1, 1, new BattleUsage())
+    constructor(character: Character) {
+        super(character, FirePotion.name, 1, 1, new BattleUsage())
     }
 
     get name(): string {
