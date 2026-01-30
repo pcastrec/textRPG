@@ -1,13 +1,27 @@
-import { Health, type Ability } from "./Ability.js";
+import { Characteristic, Health } from "./Characteristic.js";
 
-export interface IEffect {
-    self: boolean;
-    ability: Ability;
-    value: number;
+export abstract class Effect {
+    constructor(
+        private _self: boolean,
+        private _value: number,
+        private _characteristic: Characteristic,
+        private _duration = 1
+    ) { }
+
+    get self(): boolean { return this._self }
+    get value(): number { return this._value }
+    get duration(): number { return this._duration }
+    get characteristic(): Characteristic { return this._characteristic }
 }
 
-export class Regen implements IEffect {
-    self = true;
-    ability = new Health();
-    value = 10;
+export class Damage extends Effect {
+    constructor(damage: number) {
+        super(false, damage, new Health());
+    }
+}
+
+export class Regen extends Effect {
+    constructor() {
+        super(true, 10, new Health());
+    }
 }

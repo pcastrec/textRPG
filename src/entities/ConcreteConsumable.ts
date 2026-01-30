@@ -1,5 +1,5 @@
-import type { Abilities, Character } from "./Character.js";
-import { Regen, type IEffect } from "./Effect.js";
+import type { Characteristics, Character } from "./Character.js";
+import { Regen, type Effect } from "./Effect.js";
 import type { GameState } from "./GameState.js";
 import { Consumable } from "./Item.js";
 import { BattleUsage, ExplorationUsage, NoRestriction } from "./Restriction.js";
@@ -8,7 +8,7 @@ import { BattleUsage, ExplorationUsage, NoRestriction } from "./Restriction.js";
 // with IEffect arg
 export class HealthPotion extends Consumable {
 
-    constructor(character: Character, private _effect: IEffect = new Regen()) {
+    constructor(character: Character, private _effect: Effect = new Regen()) {
         super(character, `${HealthPotion.name}(${_effect.value})`, 1, 1, new NoRestriction());
     }
 
@@ -19,8 +19,8 @@ export class HealthPotion extends Consumable {
     use(state: GameState): void {
         const target = this.owner;
         const mul = this._effect.self ? 1 : -1;
-        const ability = target!.abilities[this._effect.ability.name.toLowerCase() as keyof Abilities]
-        ability.value += (mul * this._effect.value)
+        const characteristic = target!.characteristic[this._effect.characteristic.name.toLowerCase() as keyof Characteristics]
+        characteristic.value += (mul * this._effect.value)
         console.log(`${target?.name} used ${this.name}!`);
         target!.inventory.remove(this);
     }

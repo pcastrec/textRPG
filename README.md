@@ -7,12 +7,13 @@ Implementation Typescript de JavaTextRPG developpé par Fred Diekmann pour codes
 - [x] Exploration (Destination 🪲) (Interaction Environment?)
 - [~] Combat
 
-- [] GameContext naming null mais cool
+- [x] GameContext naming null mais cool => PlayerCondition
 - [] Remplacer console.log par state
 - [x] La value des potions inutilisé 🪲
 - [x] ConcreteConsumable target = self pas forcement player 🪲;
 - [] Ne pas avoir owner dans Consumable & Skill ?
 
 
-### Abilities
+### Characteristic
 - [] Attention value & maxValue 🪲
+- l'attribution initiale , passage lvl ,recalcul (changement)

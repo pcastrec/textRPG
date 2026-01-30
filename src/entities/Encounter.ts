@@ -1,31 +1,45 @@
 import { BattleSystem } from "../systems/BattleSystem.js";
+import { ExplorationSystem } from "../systems/ExplorationSystem.js";
+import type { Direction } from "./Area.js";
 import { Enemy } from "./Enemy.js";
 import type { GameState } from "./GameState.js";
-import { GameContext } from "./Restriction.js";
+import { PlayerCondition } from "./Restriction.js";
 
 // Machine a état ?
 export interface IEncounter {
-    before(state: GameState): void
+    name: string;
     execute(state: GameState): void
-    after(state: GameState): void
+}
+
+export class ExploreEncounter implements IEncounter {
+
+    name: string;
+
+    constructor(private _direction: Direction) {
+        this.name = `${ExploreEncounter.name}(${_direction})}`
+    }
+
+    execute(state: GameState): void {
+        ExplorationSystem.explore(state, this._direction);
+    }
 }
 
 export class BattleEncounter implements IEncounter {
 
-    constructor(private _enemy: Enemy) { }
-
-    before(state: GameState): void {
-        // console.log(`You fight a ${this._enemy.name}`);
-        state.context = GameContext.BATTLE;
+    name: string;
+    constructor(private _enemy: Enemy) {
+        this.name = `${BattleEncounter.name}(${_enemy.name})`;
     }
 
     execute(state: GameState): void {
-        new BattleSystem(state.player, this._enemy);
-        // console.log(`You take down ${this._enemy.name}`);
-    }
+        console.log(`You meet ${this._enemy.name}!`)
 
-    after(state: GameState) {
-        // console.log(`A dead ${this._enemy.name} is at your foot`);
-        state.context = GameContext.EXPLORATION
+        state.condition = PlayerCondition.BATTLE;
+        state.enemy = this._enemy;
+
+        new BattleSystem(state);
+
+        state.condition = PlayerCondition.EXPLORATION
+        state.enemy = null;
     }
 } 

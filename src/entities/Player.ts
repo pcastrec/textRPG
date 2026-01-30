@@ -1,21 +1,23 @@
 import { Character } from "./Character.js";
-import { Campfire, FirePotion, HealthPotion } from "./ConcreteConsumable.js";
-import { Direction, Location } from "./Location.js";
+import { Campfire, HealthPotion } from "./ConcreteConsumable.js";
+import { Area, Direction } from "./Area.js";
 import { Path } from "./Path.js";
 
 export class Player extends Character {
 
-    private _location: Location = new Location({ x: 0, y: 0 });
-
-    constructor(name: string) {
+    constructor(name: string, private _area: Area) {
         super(name);
         this.inventory.add(new Campfire(this));
         this.inventory.add(new HealthPotion(this));
     }
 
+    get area(): Area { return this._area }
+    set area(area: Area) { this._area = area }
+
     move(direction: Direction): Path {
         console.log(`You moved to the ${direction}`);
-        const nextLocation = this._location.direction(direction);
-        return new Path(this._location, nextLocation);
+        const nextArea = this._area.direction(direction);
+
+        return new Path(this._area, nextArea);
     }
 }

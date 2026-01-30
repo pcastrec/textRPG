@@ -5,11 +5,15 @@ import { type UsageRestriction } from "./Restriction.js";
 export abstract class Item {
 
     constructor(
+        protected _owner: Character,
         protected _name: string,
         private _quantity: number = 1,
         private _weigth: number = 1,
         private _restriction: UsageRestriction
     ) { }
+
+    set owner(char: Character) { this._owner = char }
+    get owner(): Character { return this._owner }
 
     get restriction(): UsageRestriction { return this._restriction }
 
@@ -24,13 +28,10 @@ export abstract class Item {
 export abstract class Consumable extends Item {
 
     constructor(
-        private _owner: Character,
-        name: string, quantity: number, weight: number, restriction: UsageRestriction
+        owner: Character, name: string, quantity: number, weight: number, restriction: UsageRestriction
     ) {
-        super(name, quantity, weight, restriction);
+        super(owner, name, quantity, weight, restriction);
     }
-
-    get owner(): Character { return this._owner }
 
     abstract use(state: GameState): void;
 
@@ -38,7 +39,7 @@ export abstract class Consumable extends Item {
         if (this.quantity <= 0) {
             return false;
         }
-        return this.restriction.canUse(state.context);
+        return this.restriction.canUse(state.condition);
     }
 
     tryUse(state: GameState): boolean {
@@ -55,7 +56,7 @@ export abstract class Consumable extends Item {
         if (this.quantity <= 0) {
             console.log(`Plus de ${this.name} disponible`);
         } else {
-            if (!this.restriction.canUse(state.context)) {
+            if (!this.restriction.canUse(state.condition)) {
                 console.log(this.restriction.getErrorMessage());
             }
         }

@@ -1,13 +1,18 @@
-import { Health, Strength } from "../entities/Ability.js";
-import type { Character } from "../entities/Character.js";
-import type { Enemy } from "../entities/Enemy.js";
-import type { Player } from "../entities/Player.js";
-import { coupPoingt, Skill } from "../entities/Skill.js";
+import type { GameState } from "../entities/GameState.js";
+import type { Consumable } from "../entities/Item.js";
 
 export class BattleSystem {
 
-    constructor(private _player: Player, private _enemy: Enemy) {
-        while (_player.isAlive() && _enemy.isAlive()) {
+    private _turn = 0;
+
+    constructor(state: GameState) {
+        while (state.player.isAlive() && state.enemy!.isAlive()) {
+            this._turn++
+            // CECI EST UN TEST
+            if (this._turn === 2) {
+                state.player.inventory.items.map(i => (i as Consumable).tryUse(state))
+            }
+
             /**
              * Imaginons
              * Actions : [Attaques, Magies?, Objet, Fuir]
@@ -17,11 +22,22 @@ export class BattleSystem {
              */
             // _player.use(_player.skills[0]!, _enemy);
             // _enemy.use(_enemy.skills[0]!, _player);
-            _player.skills[0]?.execute(_enemy);
-            _enemy.skills[0]?.execute(_player);
+            state.player.skills[0]?.execute(state.enemy!);
+            state.enemy!.skills[0]?.execute(state.player);
+            console.log(this._turn, state.player.characteristic.health.value, state.enemy?.characteristic.health.value)
         }
-        if (!_enemy.isAlive()) {
-            
+        if (!state.enemy!.isAlive()) {
+            if (state.enemy!.inventory.items.length > 0) {
+                state.enemy!.inventory.items.map(i => {
+                    console.log(`You got an ${i.name}!`)
+                    state.player.addToInventory(i)
+                })
+            } else {
+                console.log("Nothing to be droped");
+            }
+        } else {
+            console.log("Game Over");
+            process.exit(0);
         }
     }
 }

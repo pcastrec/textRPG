@@ -9,6 +9,7 @@ export class Goblin extends Enemy {
     constructor(name: string) {
         super(name);
         this.money = Math.floor(Math.random() * 5);
+        this.inventory.add(new HealthPotion(this));
     }
 }
 

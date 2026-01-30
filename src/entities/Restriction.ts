@@ -1,17 +1,17 @@
-export enum GameContext {
+export enum PlayerCondition {
     BATTLE,
     // VILLAGE,
     EXPLORATION
 }
 
 export interface UsageRestriction {
-    canUse(context: GameContext): boolean;
+    canUse(condition: PlayerCondition): boolean;
     getErrorMessage(): string;
 }
 
 export class BattleUsage implements UsageRestriction {
-    canUse(context: GameContext): boolean {
-        return context === GameContext.BATTLE;
+    canUse(condition: PlayerCondition): boolean {
+        return condition === PlayerCondition.BATTLE;
     }
     getErrorMessage(): string {
         return "Cet item ne peut être utilisé qu'en combat";
@@ -19,8 +19,8 @@ export class BattleUsage implements UsageRestriction {
 }
 
 export class ExplorationUsage implements UsageRestriction {
-    canUse(context: GameContext): boolean {
-        return context === GameContext.EXPLORATION;
+    canUse(condition: PlayerCondition): boolean {
+        return condition === PlayerCondition.EXPLORATION;
     }
     getErrorMessage(): string {
         return "Cet item ne peut être utilisé qu'en exploration";
@@ -28,7 +28,7 @@ export class ExplorationUsage implements UsageRestriction {
 }
 
 export class NoRestriction implements UsageRestriction {
-    canUse(context: GameContext): boolean {
+    canUse(condition: PlayerCondition): boolean {
         return true;
     }
     getErrorMessage(): string {
