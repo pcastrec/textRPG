@@ -1,5 +1,7 @@
 import type { Character } from "./Character.js";
+import type { Effect } from "./Effect.js";
 import type { GameState } from "./GameState.js";
+import type { Player } from "./Player.js";
 import { type UsageRestriction } from "./Restriction.js";
 
 export abstract class Item {
@@ -63,4 +65,56 @@ export abstract class Consumable extends Item {
     }
 }
 
-export abstract class Equipable extends Item { }
+export abstract class Equipable extends Item {
+    // equip restriction ?
+    constructor(private _effects:Effect[],_owner:Character,_name:string,_weight:number,_restriction:UsageRestriction){
+        super(_owner,_name,1,_weight,_restriction)
+    }
+    abstract equip(state:GameState):boolean
+    abstract itemType:string
+
+    get effects(){ return this._effects }
+
+    canEquip(state: GameState): boolean {
+        if (this.quantity <= 0) {
+            return false;
+        }
+        // return this.restriction.canEquip(state.condition);
+        return true
+    }
+
+    tryEquip(state: GameState): boolean {
+        if (!this.canEquip(state)) {
+            this.onEquipFailed(state);
+            return false;
+        }
+
+        this.equip(state);
+        return true;
+    }
+
+    protected onEquipFailed(state: GameState): void {
+        if (this.quantity <= 0) {
+            console.log(`Plus de ${this.name} disponible`);
+        } else {
+            // if (!this.restriction.canEquip(state.condition)) {
+            if(!true){
+                console.log(this.restriction.getErrorMessage());
+            }
+        }
+    }
+}
+
+
+export class Helmet extends Equipable {
+    itemType :string = "head"
+    equip(state: GameState): boolean {
+        // if isEquipable
+        // state.player.stuff.addHelmet(this)
+        state.player.stuff.add(this)
+        return true
+        
+    }
+    
+}
+

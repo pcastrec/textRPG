@@ -2,6 +2,7 @@ import { Charisma, Constitution, Dexterity, Energy, Health, Intelligence, Mana, 
 import { Inventory } from "./Inventory.js";
 import type { Item } from "./Item.js";
 import { coupPoingt, type Skill } from "./Skill.js";
+import { Stuff } from "./Stuff.js";
 
 export type Characteristics = {
     health: Health,
@@ -37,6 +38,7 @@ export abstract class Character {
 
     private _skills: Skill[] = [new coupPoingt(this)];
     private _inventory: Inventory = new Inventory();
+    private _stuff: Stuff = new Stuff()
 
     constructor(
         private _name: string
@@ -62,6 +64,7 @@ export abstract class Character {
 
     get skills(): Skill[] { return this._skills }
     get inventory(): Inventory { return this._inventory }
+    get stuff(): Stuff {return this.stuff}
     get characteristic(): Characteristics { return this._characteritics }
 
     // use(skill: Skill, enemy: Character) {

@@ -5,6 +5,8 @@ import { Path } from "./Path.js";
 
 export class Player extends Character {
 
+    private _distance : number = 0
+
     constructor(name: string, private _area: Area) {
         super(name);
         this.inventory.add(new Campfire(this));
@@ -13,6 +15,9 @@ export class Player extends Character {
 
     get area(): Area { return this._area }
     set area(area: Area) { this._area = area }
+
+    get distance(){return this._distance}
+    set distance(d:number){this.distance = d}
 
     move(direction: Direction): Path {
         console.log(`You moved to the ${direction}`);
