@@ -4,7 +4,10 @@ export class MapSystem {
 
     constructor(private _areas: Area[]) { }
 
+    get areas(){return this._areas}
+
     isFind(x: number, y: number): Area {
+        // f naming nul ?
         const area = this._areas.find(a => a.position.x == x && a.position.y == y)
         //suroundingMap()
         return area ?? this.generateArea({ x, y })

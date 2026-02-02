@@ -1,4 +1,5 @@
-import { ExploreEncounter, type IEncounter } from "./Encounter.js";
+import { BattleEncounter, ExploreEncounter, type IEncounter } from "./Encounter.js";
+import { Goblin } from "./Enemy.js";
 
 export type Position = {
     x: number;
@@ -20,7 +21,7 @@ export class Area {
         new ExploreEncounter(Direction.SOUTH),
         new ExploreEncounter(Direction.EAST),
         new ExploreEncounter(Direction.WEST),
-        // new BattleEncounter(new Goblin("AreaGoblin")),
+        new BattleEncounter(new Goblin("AreaGoblin")),
     ]) { }
 
     direction(dir: Direction): Area {

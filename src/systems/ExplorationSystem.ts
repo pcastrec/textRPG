@@ -10,7 +10,9 @@ export class ExplorationSystem {
 
     private static after(state: GameState, area: Area) {
         console.log(`You arrived to ${area.getStringPosition()}`)
-        state.player.distance += 1
+        console.log('Map that you know :')
+        console.log(``)
+        // state.player.distance = state.player.distance + 1
         state.player.area = area;
     }
 

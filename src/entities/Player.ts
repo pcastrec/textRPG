@@ -25,4 +25,10 @@ export class Player extends Character {
 
         return new Path(this._area, nextArea);
     }
+    // get  player options 
+
+
+    choices(){
+        return ["encounter","inventory","stuff"]
+    }
 }

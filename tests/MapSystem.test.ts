@@ -36,13 +36,15 @@ import { describe, it, beforeEach, expect } from 'vitest'
 import { MapSystem } from '../src/systems/MapSystem.js'
 import { Area } from '../src/entities/Area.js'
 
+// should check that surrounding map doesn't erase previous value of the map
+
 describe('MapSystem', () => {
   let mapSystem: MapSystem
 
   beforeEach(() => {
     mapSystem = new MapSystem([
       new Area({ x: 0, y: 0 }),
-      new Area({ x: 1, y: 1 }),
+      new Area({ x: 1, y: 0 }),
     ])
   })
 
@@ -78,5 +80,12 @@ describe('MapSystem', () => {
     expect(south.position).toEqual({ x: 10, y: 9 })
     expect(east.position).toEqual({ x: 11, y: 10 })
     expect(west.position).toEqual({ x: 9, y: 10 })
+  })
+
+  it('should have a length of l',()=>{
+    const center = mapSystem.isFind(0,0)
+    expect(mapSystem.areas.length).toBe(2)
+    const other = mapSystem.isFind(5,5)
+    expect(mapSystem.areas.length).toBe(3)
   })
 })
