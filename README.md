@@ -12,6 +12,7 @@ Implementation Typescript de JavaTextRPG developpé par Fred Diekmann pour codes
 - [x] La value des potions inutilisé 🪲
 - [x] ConcreteConsumable target = self pas forcement player 🪲;
 - [] Ne pas avoir owner dans Consumable & Skill ?
+- [] EquipRestriction no condition yet
 
 
 ### Characteristic

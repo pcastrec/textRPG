@@ -9,6 +9,11 @@ export interface UsageRestriction {
     getErrorMessage(): string;
 }
 
+export interface EquipRestriction {
+    canEquip(): boolean
+    getErrorMessage(): string
+}
+
 export class BattleUsage implements UsageRestriction {
     canUse(condition: PlayerCondition): boolean {
         return condition === PlayerCondition.BATTLE;
@@ -27,11 +32,21 @@ export class ExplorationUsage implements UsageRestriction {
     }
 }
 
-export class NoRestriction implements UsageRestriction {
+export class NoUsageRestriction implements UsageRestriction {
     canUse(condition: PlayerCondition): boolean {
         return true;
     }
     getErrorMessage(): string {
         return '';
     }
+}
+
+export class NoEquipRestriction implements EquipRestriction {
+    canEquip(): boolean {
+        return true;
+    }
+    getErrorMessage(): string {
+        return '';
+    }
+
 }

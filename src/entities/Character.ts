@@ -38,7 +38,7 @@ export abstract class Character {
 
     private _skills: Skill[] = [new coupPoingt(this)];
     private _inventory: Inventory = new Inventory();
-    private _stuff: Stuff = new Stuff()
+    private _stuff: Stuff = new Stuff();
 
     constructor(
         private _name: string
@@ -64,7 +64,7 @@ export abstract class Character {
 
     get skills(): Skill[] { return this._skills }
     get inventory(): Inventory { return this._inventory }
-    get stuff(): Stuff {return this.stuff}
+    get stuff(): Stuff { return this._stuff }
     get characteristic(): Characteristics { return this._characteritics }
 
     // use(skill: Skill, enemy: Character) {

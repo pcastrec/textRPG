@@ -1,15 +1,15 @@
+import { BattleUsage, ExplorationUsage, NoUsageRestriction } from "./Restriction.js";
 import type { Characteristics, Character } from "./Character.js";
 import { Regen, type Effect } from "./Effect.js";
 import type { GameState } from "./GameState.js";
 import { Consumable } from "./Item.js";
-import { BattleUsage, ExplorationUsage, NoRestriction } from "./Restriction.js";
 
 // Strategy Pattern on Potions replace concrete classes
 // with IEffect arg
 export class HealthPotion extends Consumable {
 
     constructor(character: Character, private _effect: Effect = new Regen()) {
-        super(character, `${HealthPotion.name}(${_effect.value})`, 1, 1, new NoRestriction());
+        super(character, `${HealthPotion.name}(${_effect.value})`, 1, 1, new NoUsageRestriction());
     }
 
     get name(): string {
