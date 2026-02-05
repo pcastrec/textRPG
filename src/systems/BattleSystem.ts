@@ -9,7 +9,7 @@ export class BattleSystem {
         while (state.player.isAlive() && state.enemy!.isAlive()) {
             this._turn++
             // CECI EST UN TEST
-            if (this._turn === 2) {
+            if (this._turn === 3) {
                 state.player.inventory.items.map(i => (i as Consumable).tryUse(state))
             }
 

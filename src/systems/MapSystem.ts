@@ -12,12 +12,8 @@ export class MapSystem {
 
     generateArea(postion: Position): Area {
         const area = new Area(postion)
-        this.add(area)
-        return area
-    }
-
-    add(area: Area) {
         this._areas.push(area)
+        return area
     }
 
     //add create suroundingMap
@@ -27,9 +23,9 @@ export class MapSystem {
         const south: Position = { x: area.position.x, y: area.position.y - 1 }
         const east: Position = { x: area.position.x + 1, y: area.position.y }
         const west: Position = { x: area.position.x - 1, y: area.position.y }
-        const surounding : Position[] = [north,south,east,west]
+        const surounding: Position[] = [north, south, east, west]
 
-        surounding.map(p=>this.isFind(p.x,p.y))
+        surounding.map(p => this.isFind(p.x, p.y))
     }
 
 }

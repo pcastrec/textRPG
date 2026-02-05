@@ -1,4 +1,5 @@
-import { ExploreEncounter, type IEncounter } from "./Encounter.js";
+import { BattleEncounter, ExploreEncounter, type IEncounter } from "./Encounter.js";
+import { Goblin } from "./Enemy.js";
 
 export type Position = {
     x: number;
@@ -13,14 +14,14 @@ export enum Direction {
 }
 
 export class Area {
-    visited:boolean = false;
+    visited: boolean = false;
 
     constructor(private _position: Position, private _encounters: IEncounter[] = [
         new ExploreEncounter(Direction.NORTH),
         new ExploreEncounter(Direction.SOUTH),
         new ExploreEncounter(Direction.EAST),
         new ExploreEncounter(Direction.WEST),
-        // new BattleEncounter(new Goblin("AreaGoblin")),
+        new BattleEncounter(new Goblin("AreaGoblin")),
     ]) { }
 
     direction(dir: Direction): Area {

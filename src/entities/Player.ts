@@ -1,6 +1,6 @@
+import { Area, Direction } from "./Area.js";
 import { Character } from "./Character.js";
 import { Campfire, HealthPotion } from "./ConcreteConsumable.js";
-import { Area, Direction } from "./Area.js";
 import { Path } from "./Path.js";
 
 export class Player extends Character {
@@ -17,7 +17,7 @@ export class Player extends Character {
     set area(area: Area) { this._area = area }
 
     get distance() { return this._distance }
-    set distance(d: number) { this.distance = d }
+    set distance(d: number) { this._distance = d }
 
     move(direction: Direction): Path {
         console.log(`You moved to the ${direction}`);

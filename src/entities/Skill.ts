@@ -20,6 +20,7 @@ export class Skill {
         })
     }
 
+    get name(): string { return this._name }
     get effects(): { self: boolean, characteristic: Characteristic, value: number }[] {
         return this._effects
     }

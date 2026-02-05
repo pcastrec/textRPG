@@ -13,8 +13,16 @@ Implementation Typescript de JavaTextRPG developpé par Fred Diekmann pour codes
 - [x] ConcreteConsumable target = self pas forcement player 🪲;
 - [] Ne pas avoir owner dans Consumable & Skill ?
 - [] EquipRestriction no condition yet
+- [] La creation du personnage se fera avant le jeu, on injecte donc le personnage dans le jeu
+- [] interface IOSystem pour pluger une autre UI
 
 
 ### Characteristic
 - [] Attention value & maxValue 🪲
 - l'attribution initiale , passage lvl ,recalcul (changement)
+
+### Bugs
+
+- [] Double choose an action when moving
+- [] Re fight AreaGoblin auto drop
+- [] Explore => Enemy die await miss ?

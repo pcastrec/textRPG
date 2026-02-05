@@ -1,3 +1,4 @@
+import type { IOSystem } from "../systems/IOSystem.js";
 import type { Enemy } from "./Enemy.js";
 import type { Player } from "./Player.js";
 import { PlayerCondition } from "./Restriction.js";

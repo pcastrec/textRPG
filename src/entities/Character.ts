@@ -1,7 +1,7 @@
 import { Charisma, Constitution, Dexterity, Energy, Health, Intelligence, Mana, Strength, Wisdom } from "./Characteristic.js";
+import { coupPoingt, type Skill } from "./Skill.js";
 import { Inventory } from "./Inventory.js";
 import type { Item } from "./Item.js";
-import { coupPoingt, type Skill } from "./Skill.js";
 import { Stuff } from "./Stuff.js";
 
 export type Characteristics = {
@@ -36,6 +36,20 @@ export abstract class Character {
         charisma: new Charisma()
     };
 
+    private _exploreActions = [
+        "explore",
+        "leave"
+    ]
+
+    private _battleActions = [
+        "Attaque",
+        "Objets",
+        "Fuir"
+    ]
+
+    get exploreActions(): string[] { return this._exploreActions }
+    get battleActions(): string[] { return this._battleActions }
+
     private _skills: Skill[] = [new coupPoingt(this)];
     private _inventory: Inventory = new Inventory();
     private _stuff: Stuff = new Stuff();
@@ -66,15 +80,6 @@ export abstract class Character {
     get inventory(): Inventory { return this._inventory }
     get stuff(): Stuff { return this._stuff }
     get characteristic(): Characteristics { return this._characteritics }
-
-    // use(skill: Skill, enemy: Character) {
-    //     skill.effects.map(e => {
-    //         const target = e.self ? this : enemy;
-    //         const mul = e.self ? 1 : -1;
-    //         const characteristic = target._characteritics[e.characteristic.name.toLowerCase() as keyof Characteristics]
-    //         characteristic.value += (mul * e.value)
-    //     })
-    // }
 
     addToInventory(item: Item) {
         item.owner = this;
