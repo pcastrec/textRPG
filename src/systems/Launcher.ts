@@ -50,7 +50,7 @@ export class Launcher {
             case 1:
                 const result = await this.state.iosystem.ask(this.player.area.encounters.map(e => e.name), "Where do you wanna go ?");
                 console.log(`turn: ${this.turn}\taction: ${result}`);
-                this.player.area.encounters[result - 1]?.execute(this.state);
+                await this.player.area.encounters[result - 1]?.execute(this.state);
                 break;
             case 2:
                 this.running = false;

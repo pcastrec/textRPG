@@ -8,7 +8,7 @@ import { PlayerCondition } from "./Restriction.js";
 // Machine a état ?
 export interface IEncounter {
     name: string;
-    execute(state: GameState): void
+    execute(state: GameState): Promise<void>
 }
 
 export class ExploreEncounter implements IEncounter {
@@ -19,8 +19,8 @@ export class ExploreEncounter implements IEncounter {
         this.name = `${ExploreEncounter.name}(${_direction})}`
     }
 
-    execute(state: GameState): void {
-        ExplorationSystem.explore(state, this._direction);
+    async execute(state: GameState): Promise<void> {
+        await ExplorationSystem.explore(state, this._direction);
     }
 }
 
@@ -31,16 +31,16 @@ export class BattleEncounter implements IEncounter {
         this.name = `${BattleEncounter.name}(${_enemy.name})`;
     }
 
-    execute(state: GameState): void {
+    async execute(state: GameState): Promise<void> {
         console.log(this._enemy);
 
         const initialCondition = state.condition;
         state.condition = PlayerCondition.BATTLE;
         state.enemy = this._enemy;
-        
-        new BattleSystem(state);
-        
-        if(initialCondition === PlayerCondition.VILLAGE) {
+
+        await new BattleSystem(state).battle();
+
+        if (initialCondition === PlayerCondition.VILLAGE) {
             state.player.area.encounters = state.player.area.encounters.filter(e => e !== this);
         }
         state.condition = initialCondition;

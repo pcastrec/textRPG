@@ -17,13 +17,15 @@ export class ExplorationSystem {
         state.player.area = area;
     }
 
-    static explore(state: GameState, direction: Direction): Area {
+    static async explore(state: GameState, direction: Direction): Promise<Area> {
         const path = state.player.move(direction);
         this.before(state, path);
-        path.encounters.map(e => {
-            e.execute(state);
-        })
-        this.after(state, path.to);
+        for (let e of path.encounters) {
+            await e.execute(state);
+        }
+        if (state.player.isAlive()) {
+            this.after(state, path.to);
+        }
         // En fonction des actions précédentes
         // _path.from si fuite combat
         return path.to;
