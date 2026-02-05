@@ -4,10 +4,10 @@ import type { Player } from "./Player.js";
 import { PlayerCondition } from "./Restriction.js";
 
 export class GameState {
-    private _condition: PlayerCondition = PlayerCondition.EXPLORATION;
+    private _condition: PlayerCondition = PlayerCondition.VILLAGE;
     private _enemy: Enemy | null = null;
 
-    constructor(public player: Player) { }
+    constructor(public player: Player, public iosystem: IOSystem) { }
 
     get condition(): PlayerCondition { return this._condition }
     set condition(c: PlayerCondition) { this._condition = c }

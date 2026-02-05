@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "npx tsx main.ts",
     "test": "vitest run",
     "test:watch": "vitest watch"
   },

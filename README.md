@@ -23,6 +23,5 @@ Implementation Typescript de JavaTextRPG developpé par Fred Diekmann pour codes
 
 ### Bugs
 
-- [] Double choose an action when moving
 - [] Re fight AreaGoblin auto drop
 - [] Explore => Enemy die await miss ?

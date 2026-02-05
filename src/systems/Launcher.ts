@@ -1,13 +1,11 @@
-import { TerminalSystem } from "./TerminalSystem.js"
+import { Area } from "../entities/Area.js"
 import { GameState } from "../entities/GameState.js"
 import { Player } from "../entities/Player.js"
 import { MapSystem } from "./MapSystem.js"
-import { Area } from "../entities/Area.js"
-import type { IOSystem } from "./IOSystem.js"
+import { TerminalSystem } from "./TerminalSystem.js"
 
 export class Launcher {
 
-    // iosystem: IOSystem
     player: Player
     state: GameState
     initArea: Area
@@ -17,47 +15,42 @@ export class Launcher {
     running: boolean = true
 
     constructor(private sequence: number[] = [1, 1, 1, 4]) {
-        // this.iosystem = new TerminalSystem();
         this.initArea = new Area({ x: 0, y: 0 })
         this.player = new Player("Peter", this.initArea)
-        this.player.characteristic.health.value = 20
+        this.player.characteristic.health.value = 30
 
-        this.state = new GameState(this.player)
+        this.state = new GameState(this.player, new TerminalSystem());
         this.mapSystem = new MapSystem([this.initArea])
 
         this.turn = 0
         this.nbChoices = 0
     }
 
+    async runSequence() {
+        for (let action of this.sequence) {
+            console.log(`turn: ${this.turn}\taction: ${action}`);
+            // const result = await this.iosystem.ask(this.player.actions);
+            await this.action(action)
+        }
+        this.state.iosystem.close();
+    }
+
     async run() {
         while (this.player.characteristic.health.value > 0 && this.running) {
-            console.log(`turn: ${this.turn}\taction: ${this.sequence[this.turn]!}`);
-            // const result = await this.iosystem.ask(this.player.exploreActions, "What do you want to do ?");
-            this.action(this.sequence[this.turn]!);
+            const choice = await this.state.iosystem.ask(this.player.exploreActions, "Choose an action");
+            await this.action(choice);
         }
         // Evite de rester bloqué dans un whileLoop
-        // this.iosystem.close();
+        this.state.iosystem.close();
     }
 
-    async runSequence() {
-        while (this.player.characteristic.health.value > 0 && this.running) {
-            if (this.turn < this.sequence.length - 1) {
-                console.log(`turn: ${this.turn}\taction: ${this.sequence[this.turn]!}`);
-                // const result = await this.iosystem.ask(this.player.actions);
-                this.action(this.sequence[this.turn]!)
-            } else {
-                this.running = false;
-            }
-        }
-    }
-
-    action(choice: number) {
+    async action(choice: number) {
         this.turn += 1;
         switch (choice) {
             case 1:
-                console.log(`turn: ${this.turn}\taction: ${this.sequence[this.turn]!}`);
-                // const result = await this.iosystem.ask(this.player.area.encounters.map(e => e.name), "Where do you wanna go ?");
-                this.player.area.encounters[this.sequence[this.turn]!]?.execute(this.state);
+                const result = await this.state.iosystem.ask(this.player.area.encounters.map(e => e.name), "Where do you wanna go ?");
+                console.log(`turn: ${this.turn}\taction: ${result}`);
+                this.player.area.encounters[result - 1]?.execute(this.state);
                 break;
             case 2:
                 this.running = false;

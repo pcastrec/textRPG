@@ -32,14 +32,18 @@ export class BattleEncounter implements IEncounter {
     }
 
     execute(state: GameState): void {
-        console.log(`You meet ${this._enemy.name}!`)
+        console.log(this._enemy);
 
+        const initialCondition = state.condition;
         state.condition = PlayerCondition.BATTLE;
         state.enemy = this._enemy;
-
+        
         new BattleSystem(state);
-
-        state.condition = PlayerCondition.EXPLORATION
+        
+        if(initialCondition === PlayerCondition.VILLAGE) {
+            state.player.area.encounters = state.player.area.encounters.filter(e => e !== this);
+        }
+        state.condition = initialCondition;
         state.enemy = null;
     }
 } 

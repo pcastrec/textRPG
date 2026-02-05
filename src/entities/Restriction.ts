@@ -1,6 +1,6 @@
 export enum PlayerCondition {
     BATTLE,
-    // VILLAGE,
+    VILLAGE,
     EXPLORATION
 }
 
@@ -25,7 +25,7 @@ export class BattleUsage implements UsageRestriction {
 
 export class ExplorationUsage implements UsageRestriction {
     canUse(condition: PlayerCondition): boolean {
-        return condition === PlayerCondition.EXPLORATION;
+        return condition !== PlayerCondition.BATTLE;
     }
     getErrorMessage(): string {
         return "Cet item ne peut être utilisé qu'en exploration";

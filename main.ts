@@ -1,3 +1,3 @@
 import { Launcher } from "./src/systems/Launcher.js";
 
-await new Launcher().runSequence();
+await new Launcher().run();

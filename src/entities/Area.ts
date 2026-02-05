@@ -22,7 +22,9 @@ export class Area {
         new ExploreEncounter(Direction.EAST),
         new ExploreEncounter(Direction.WEST),
         new BattleEncounter(new Goblin("AreaGoblin")),
-    ]) { }
+    ]) {
+        // this._encounters = [...this._encounters, ...this.getEncounters()];
+    }
 
     direction(dir: Direction): Area {
         let x = 0;
@@ -53,8 +55,16 @@ export class Area {
         });
     }
 
+    getEncounters(): IEncounter[] {
+        return [
+            new BattleEncounter(new Goblin('goblin' + this.encounters.length)),
+            new BattleEncounter(new Goblin('goblin' + (this.encounters.length + 1)))
+        ]
+    }
+
     get position(): Position { return this._position }
     get encounters(): IEncounter[] { return this._encounters }
+    set encounters(encounters: IEncounter[]) { this._encounters = encounters }
 
     getStringPosition(): string { return `[${this.position.x}, ${this.position.y}]` }
 }
