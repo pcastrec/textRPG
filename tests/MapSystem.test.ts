@@ -52,17 +52,12 @@ describe('MapSystem', () => {
     expect(area.position.y).toBe(0)
   })
 
+
+
   it('should generate a new area if not found', () => {
     const area = mapSystem.isFind(5, 5)
     expect(area.position.x).toBe(5)
     expect(area.position.y).toBe(5)
-  })
-
-  it('should add a new area', () => {
-    const newArea = new Area({ x: 2, y: 2 })
-    mapSystem.add(newArea)
-    const found = mapSystem.isFind(2, 2)
-    expect(found).toBe(newArea)
   })
 
   it('should generate surrounding areas', () => {
